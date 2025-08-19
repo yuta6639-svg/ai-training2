@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小学校教員向け 生成AI活用研修</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals -->
+    <!-- Application Structure Plan: 研修計画の静的な時間軸を、より探求しやすいテーマ別の構造（「知る」「使う」「広げる」「安全に使う」）に再設計しました。ユーザーが関心のあるトピックに直接アクセスできるよう、タブ形式のナビゲーションを採用。各セクションでは、インタラクティブなカードやチャートを用いて情報を提示し、受動的な閲覧から能動的な学習体験へと転換させることを目指します。この構造は、ユーザーが自身のペースで内容を消化し、研修全体の流れを直感的に理解するのに役立ちます。 -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: 研修の時間配分 -> Goal: 構成を視覚的に伝える -> Viz/Presentation: ドーナツチャート -> Interaction: ホバーで詳細表示 -> Justification: 各パートの比重を瞬時に理解できるため -> Library/Method: Chart.js
+        - Report Info: AIのできること、具体的な課題例 -> Goal: 具体例を分かりやすく提示する -> Viz/Presentation: インタラクティブカード -> Interaction: クリックで詳細情報を表示 -> Justification: 情報を段階的に開示し、ユーザーの興味を引きつけ、過度な情報量を避けるため -> Library/Method: HTML/CSS/JS
+        - Report Info: 安全利用の注意点 -> Goal: 重要な情報を強調し、記憶しやすくする -> Viz/Presentation: アイコン付きの箇条書きカード -> Interaction: なし（静的表示） -> Justification: 最も重要な安全指針を明確かつ簡潔に伝えるため -> Library/Method: HTML/CSS/Tailwind
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Noto Sans JP', 'Inter', sans-serif;
+            background-color: #FDFBF8;
+            color: #4A4A4A;
+        }
+        .tab-active {
+            border-bottom-color: #D4A373;
+            color: #D4A373;
+            font-weight: 600;
+        }
+        .content-card {
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        .content-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -2px rgb(0 0 0 / 0.1);
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin: auto;
+            height: 300px;
+            max-height: 350px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <div class="container mx-auto p-4 sm:p-6 md:p-8 max-w-6xl">
+        <header class="text-center mb-8 md:mb-12">
+            <h1 class="text-3xl md:text-4xl font-bold text-[#3A3A3A] mb-2">小学校教員向け 生成AI活用研修</h1>
+            <p class="text-md md:text-lg text-gray-600">2時間の研修でAIの可能性を「知る」「使う」「広げる」</p>
+        </header>
+
+        <nav class="flex justify-center border-b-2 border-gray-200 mb-8">
+            <button class="tab-btn px-4 sm:px-6 py-3 text-sm sm:text-base border-b-4 border-transparent transition-colors duration-300 tab-active" data-tab="know">知る</button>
+            <button class="tab-btn px-4 sm:px-6 py-3 text-sm sm:text-base border-b-4 border-transparent transition-colors duration-300" data-tab="use">使う</button>
+            <button class="tab-btn px-4 sm:px-6 py-3 text-sm sm:text-base border-b-4 border-transparent transition-colors duration-300" data-tab="expand">広げる</button>
+            <button class="tab-btn px-4 sm:px-6 py-3 text-sm sm:text-base border-b-4 border-transparent transition-colors duration-300" data-tab="safety">安全に使う</button>
+        </nav>
+
+        <main>
+            <section id="know" class="tab-content space-y-8">
+                <div class="bg-white/80 backdrop-blur-sm p-6 rounded-xl shadow-sm border border-gray-200/50">
+                    <h2 class="text-2xl font-bold text-[#D4A373] mb-4">【第1部】 AIを知る・触れる (60分)</h2>
+                    <p class="text-gray-700 leading-relaxed mb-6">
+                        このセクションでは、生成AIがどのようなもので、現在どのようなことが可能になっているのかを学びます。文章作成だけでなく、画像や音楽の生成といった創造的な側面に触れることで、AI技術の広がりと可能性を体感し、まずは純粋な興味関心からAIに親しむことを目指します。
+                    </p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div class="space-y-4">
+                        <div class="content-card bg-white p-5 rounded-lg border border-gray-200/80">
+                            <h3 class="font-semibold text-lg mb-2 text-gray-800">生成AIの世界を体験</h3>
+                            <p class="text-gray-600">Gemini（テキスト）、DALL-E（画像）、Suno AI（音楽）など、多様なサービスのデモンストレーションを通じて、AIができることの幅広さを実感します。</p>
+                        </div>
+                        <div class="content-card bg-white p-5 rounded-lg border border-gray-200/80">
+                            <h3 class="font-semibold text-lg mb-2 text-gray-800">活用事例の共有</h3>
+                            <p class="text-gray-600">個人的な生活や、これまでの仕事の中でAIを活用した経験をチャットや座談会形式で共有し、具体的な利用イメージを膨らませます。</p>
+                        </div>
+                         <div class="content-card bg-white p-5 rounded-lg border border-gray-200/80">
+                            <h3 class="font-semibold text-lg mb-2 text-gray-800">アイデアのグループワーク</h3>
+                            <p class="text-gray-600">「どんな仕事をAIに任せたいか？」「授業がもっと楽しくなるAIの使い方は？」といったテーマで、アイデアを出し合います。</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="chart-container">
+                            <canvas id="part1Chart"></canvas>
+                        </div>
+                        <p class="text-center text-sm text-gray-500 mt-2">第1部の時間配分</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="use" class="tab-content hidden space-y-8">
+                 <div class="bg-white/80 backdrop-blur-sm p-6 rounded-xl shadow-sm border border-gray-200/50">
+                    <h2 class="text-2xl font-bold text-[#D4A373] mb-4">【第2部-前半】 実際にAIを使ってみよう (20分)</h2>
+                    <p class="text-gray-700 leading-relaxed mb-6">
+                        ここでは、参加者一人ひとりが自身の業務に関連する具体的な課題を設定し、実際にGeminiを使って解決策を探るハンズオンを行います。テキストベースの対話を通じて、AIを実務のパートナーとして活用する第一歩を踏み出します。
+                    </p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="content-card bg-white p-5 rounded-lg border border-gray-200/80 text-center">
+                        <div class="text-4xl mb-3">📄</div>
+                        <h3 class="font-semibold text-lg mb-2 text-gray-800">校務での活用例</h3>
+                        <p class="text-gray-600 text-sm">保護者向けの連絡事項を、より丁寧で分かりやすい文章に書き直す。</p>
+                    </div>
+                    <div class="content-card bg-white p-5 rounded-lg border border-gray-200/80 text-center">
+                        <div class="text-4xl mb-3">➗</div>
+                        <h3 class="font-semibold text-lg mb-2 text-gray-800">授業での活用例</h3>
+                        <p class="text-gray-600 text-sm">算数の「分数のたし算」をテーマにした文章問題を複数パターン作成する。</p>
+                    </div>
+                    <div class="content-card bg-white p-5 rounded-lg border border-gray-200/80 text-center">
+                        <div class="text-4xl mb-3">🚌</div>
+                        <h3 class="font-semibold text-lg mb-2 text-gray-800">生活指導での活用例</h3>
+                        <p class="text-gray-600 text-sm">遠足のしおりに掲載する「班長へのメッセージ」の草案を作成する。</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="expand" class="tab-content hidden space-y-8">
+                 <div class="bg-white/80 backdrop-blur-sm p-6 rounded-xl shadow-sm border border-gray-200/50">
+                    <h2 class="text-2xl font-bold text-[#D4A373] mb-4">【第2部-中盤】 より効率的な、発展的な使い方 (20分)</h2>
+                    <p class="text-gray-700 leading-relaxed mb-6">
+                        AI活用の幅をさらに広げるため、Geminiの拡張機能や他のGoogleサービスとの連携方法を学びます。これにより、情報収集、アイデア整理、事務作業の自動化など、より高度で効率的なAIの活用法を習得します。
+                    </p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="content-card bg-white p-5 rounded-lg border border-gray-200/80">
+                        <h3 class="font-semibold text-lg mb-2 text-gray-800">Deep Research機能</h3>
+                        <p class="text-gray-600 text-sm">特定のトピックについて、多角的な情報を効率的に収集する方法を学びます。</p>
+                    </div>
+                    <div class="content-card bg-white p-5 rounded-lg border border-gray-200/80">
+                        <h3 class="font-semibold text-lg mb-2 text-gray-800">Canvas機能</h3>
+                        <p class="text-gray-600 text-sm">授業のアイデア出しや指導案の構成を、視覚的に整理する方法を体験します。</p>
+                    </div>
+                    <div class="content-card bg-white p-5 rounded-lg border border-gray-200/80">
+                        <h3 class="font-semibold text-lg mb-2 text-gray-800">スプレッドシート連携</h3>
+                        <p class="text-gray-600 text-sm">関数やGASを活用し、成績処理やアンケート集計を効率化する例を紹介します。</p>
+                    </div>
+                    <div class="content-card bg-white p-5 rounded-lg border border-gray-200/80">
+                        <h3 class="font-semibold text-lg mb-2 text-gray-800">ドキュメント連携</h3>
+                        <p class="text-gray-600 text-sm">文書作成の自動化、要約、添削などを体験し、文書業務の負担を軽減します。</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="safety" class="tab-content hidden space-y-8">
+                <div class="bg-white/80 backdrop-blur-sm p-6 rounded-xl shadow-sm border border-gray-200/50">
+                    <h2 class="text-2xl font-bold text-[#D4A373] mb-4">【第2部-終盤】 AIを安全に使うための注意点 (10分)</h2>
+                    <p class="text-gray-700 leading-relaxed mb-6">
+                        AIは強力なツールですが、その利用には適切な理解と注意が不可欠です。教育現場でAIを責任を持って活用するために、倫理、セキュリティ、情報の正確性に関する重要なポイントを確認します。
+                    </p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-white p-5 rounded-lg border border-red-200/80 flex items-start space-x-4">
+                        <span class="text-2xl mt-1">🛡️</span>
+                        <div>
+                            <h3 class="font-semibold text-lg mb-1 text-red-800">個人情報とプライバシー</h3>
+                            <p class="text-gray-600 text-sm">児童・生徒の個人情報（氏名、成績など）は絶対に入力しない。プライバシー保護を最優先に考えます。</p>
+                        </div>
+                    </div>
+                    <div class="bg-white p-5 rounded-lg border border-yellow-200/80 flex items-start space-x-4">
+                        <span class="text-2xl mt-1">✅</span>
+                        <div>
+                            <h3 class="font-semibold text-lg mb-1 text-yellow-800">ファクトチェックの徹底</h3>
+                            <p class="text-gray-600 text-sm">AIが生成した情報は、必ずしも正確とは限りません。必ず信頼できる情報源で事実確認（ファクトチェック）を行います。</p>
+                        </div>
+                    </div>
+                    <div class="bg-white p-5 rounded-lg border border-blue-200/80 flex items-start space-x-4">
+                        <span class="text-2xl mt-1">©️</span>
+                        <div>
+                            <h3 class="font-semibold text-lg mb-1 text-blue-800">著作権とバイアス</h3>
+                            <p class="text-gray-600 text-sm">生成物の著作権の扱いに注意し、AIが持つ可能性のある偏見（バイアス）を理解した上で利用します。</p>
+                        </div>
+                    </div>
+                     <div class="bg-white p-5 rounded-lg border border-green-200/80 flex items-start space-x-4">
+                        <span class="text-2xl mt-1">🤝</span>
+                        <div>
+                            <h3 class="font-semibold text-lg mb-1 text-green-800">AIは「パートナー」</h3>
+                            <p class="text-gray-600 text-sm">AIはあくまで業務を支援するツールです。最終的な教育的判断や責任は、常に教員自身が持ちます。</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="text-center mt-12 pt-8 border-t border-gray-200">
+            <p class="text-gray-500">この研修を通じて、AIを信頼できるパートナーとして日々の業務に活かしていきましょう。</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabs = document.querySelectorAll('.tab-btn');
+            const contents = document.querySelectorAll('.tab-content');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(item => item.classList.remove('tab-active'));
+                    tab.classList.add('tab-active');
+
+                    const target = tab.getAttribute('data-tab');
+                    contents.forEach(content => {
+                        if (content.id === target) {
+                            content.classList.remove('hidden');
+                        } else {
+                            content.classList.add('hidden');
+                        }
+                    });
+                });
+            });
+
+            const chartColors = {
+                backgroundColor: [
+                    'rgba(212, 163, 115, 0.2)',
+                    'rgba(175, 186, 157, 0.2)',
+                    'rgba(148, 168, 176, 0.2)',
+                    'rgba(244, 222, 203, 0.2)',
+                ],
+                borderColor: [
+                    'rgba(212, 163, 115, 1)',
+                    'rgba(175, 186, 157, 1)',
+                    'rgba(148, 168, 176, 1)',
+                    'rgba(244, 222, 203, 1)',
+                ],
+                borderWidth: 1,
+                hoverOffset: 4
+            };
+            
+            const chartOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            font: {
+                                family: "'Noto Sans JP', 'Inter', sans-serif",
+                            }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed !== null) {
+                                    label += context.parsed + '分';
+                                }
+                                return label;
+                            }
+                        }
+                    }
+                }
+            };
+
+            const ctx1 = document.getElementById('part1Chart');
+            if(ctx1) {
+                new Chart(ctx1, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['はじめに (10分)', 'デモ・体験 (20分)', '事例共有 (10分)', 'グループワーク (20分)'],
+                        datasets: [{
+                            label: '第1部 時間配分',
+                            data: [10, 20, 10, 20],
+                            ...chartColors
+                        }]
+                    },
+                    options: chartOptions
+                });
+            }
+        });
+    </script>
+</body>
+</html>
